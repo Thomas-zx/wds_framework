@@ -1,13 +1,14 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
-
+import com.example.hardwarelibrary.*;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 public class MainActivity extends AppCompatActivity {
     private boolean led_flags = false;
@@ -87,8 +88,10 @@ public class MainActivity extends AppCompatActivity {
         btn_led.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                HardControl hardControl = new HardControl();
                 led_flags = !led_flags;
                 if (led_flags) {
+                    hardControl.ledClose();
                     btn_led.setText("All OFF");
                     text.setText("LED All OFF");
                     led1.setChecked(false);
@@ -97,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
                     led4.setChecked(false);
                 }
                 else {
+                    hardControl.ledOpen();
                     btn_led.setText("All ON");
                     text.setText("LED All ON");
                     led1.setChecked(true);
