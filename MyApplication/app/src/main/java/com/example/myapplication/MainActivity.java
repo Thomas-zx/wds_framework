@@ -39,35 +39,47 @@ public class MainActivity extends AppCompatActivity {
         switch(view.getId()) {
             case R.id.checkbox_led1:
                 if (checked) {
+                    HardControl.ledCtrl(0, 1);
                     //text.setText("LED1 ON");
                     Toast.makeText(getApplicationContext(), "LED1 ON", Toast.LENGTH_SHORT).show();
                 }
                 else {
+                    HardControl.ledCtrl(0, 0);
                     //text.setText("LED1 OFF");
                     Toast.makeText(getApplicationContext(), "LED1 OFF", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.checkbox_led2:
                 if (checked) {
+                    HardControl.ledCtrl(1, 1);
                     //text.setText("LED2 ON");
                     Toast.makeText(getApplicationContext(), "LED2 ON", Toast.LENGTH_SHORT).show();
                 }
                 else {
+                    HardControl.ledCtrl(1, 0);
                     //text.setText("LED2 OFF");
                     Toast.makeText(getApplicationContext(), "LED2 OFF", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.checkbox_led3:
-                if (checked)
+                if (checked) {
+                    HardControl.ledCtrl(2, 1);
                     text.setText("LED3 ON");
-                else
+                }
+                else {
+                    HardControl.ledCtrl(2, 0);
                     text.setText("LED3 OFF");
+                }
                 break;
             case R.id.checkbox_led4:
-                if (checked)
+                if (checked) {
+                    HardControl.ledCtrl(3, 1);
                     text.setText("LED4 ON");
-                else
+                }
+                else {
+                    HardControl.ledCtrl(3, 0);
                     text.setText("LED4 OFF");
+                }
                 break;
             // TODO: Veggie sandwich
         }
@@ -84,29 +96,29 @@ public class MainActivity extends AppCompatActivity {
         led2 = findViewById(R.id.checkbox_led2);
         led3 = findViewById(R.id.checkbox_led3);
         led4 = findViewById(R.id.checkbox_led4);
+        HardControl.ledOpen();
 
         btn_led.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                HardControl hardControl = new HardControl();
                 led_flags = !led_flags;
                 if (led_flags) {
-                    hardControl.ledClose();
                     btn_led.setText("All OFF");
                     text.setText("LED All OFF");
                     led1.setChecked(false);
                     led2.setChecked(false);
                     led3.setChecked(false);
                     led4.setChecked(false);
+                    HardControl.ledCtrl(0, 0);
                 }
                 else {
-                    hardControl.ledOpen();
                     btn_led.setText("All ON");
                     text.setText("LED All ON");
                     led1.setChecked(true);
                     led2.setChecked(true);
                     led3.setChecked(true);
                     led4.setChecked(true);
+                    HardControl.ledCtrl(0, 1);
                 }
             }
         });

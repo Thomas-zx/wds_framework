@@ -2,22 +2,31 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-//#include <android/log.h>  /* liblog */
+#include <android/log.h>  /* liblog */
+
+//__android_log_print(ANDROID_LOG_DEBUG, "JNIDemo", "native add ...");
+#define LOG_TAG    "Native-Dev-LED"
+#define LOGV(...)   __android_log_print(ANDROID_LOG_VERBOSE, LOG_TAG, __VA_ARGS__)
+#define LOGD(...)   __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
+#define LOGI(...)   __android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
+#define LOGW(...)   __android_log_print(ANDROID_LOG_WARN, LOG_TAG, __VA_ARGS__)
+#define LOGE(...)   __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
 
 jint ledOpen(JNIEnv *env, jobject cls)
 {
-    printf("ledOpen\n");
+    LOGI("Native : LED Open ...");
+
     return 0;
 }
 
 void ledClose(JNIEnv *env, jobject cls)
 {
-    printf("ledClose\n");
+    LOGI("Native : LED Close ...");
 }
 
 jint ledCtrl(JNIEnv *env, jobject cls, jint which, jint state)
 {
-    printf("ledCtrl\n");
+    LOGI("Native : LED Ctrl:%d, %d", which, state);
     return 0;
 }
 
@@ -34,6 +43,7 @@ JNI_OnLoad(JavaVM* jvm, void* reserved)
     JNIEnv *env;
     jclass cls;
 
+    LOGI("Native : LED JNI OnLoad");
     if ((*jvm)->GetEnv(jvm, (void **)&env, JNI_VERSION_1_4)) {
     	return JNI_ERR; /* JNI version not supported */
     }
@@ -49,3 +59,4 @@ JNI_OnLoad(JavaVM* jvm, void* reserved)
     
     return JNI_VERSION_1_4;
 }
+
